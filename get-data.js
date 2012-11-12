@@ -1,7 +1,7 @@
 var request = require('request')
   , cheerio = require('cheerio')
   , fs = require('fs')
-  , outfilePrefix = 'app/'
+  , outfilePrefix = 'app/data/'
   , sources = [ 'http://hartapoliticii.ro/?c=camera+deputatilor+2009&cid=11&sid=1',
   		'http://hartapoliticii.ro/?c=senat+2009&cid=12&sid=1'
   	];
@@ -37,6 +37,8 @@ sources.forEach(function (source) {
 		var everybody = [];
 		$table.find('tr').each(function (idx, row) {
 			var entry = {};
+			// skip the first few rows
+			if (idx < 3) return true;
 			$(row).find('td').each(function (idx, cell) {
 				switch (idx) {
 					case 0:
