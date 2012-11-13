@@ -1,8 +1,8 @@
-define(['Tooltip'], function (Tooltip) {
-    var WIDTH = HEIGHT = 960;
-    
+define(['jquery', 'InfoBox', 'politicians'], function ($, InfoBox, Politicians) {
+    var WIDTH = HEIGHT = 700;
+    var color = { 'PD-L' : 'orange', 'PSD' : 'red', 'PNL' : 'yellow', 'UDMR' : 'green' };
     var PackChart = function (data) {
-      this.tooltip = new Tooltip(Handlebars.compile($("#tooltipTemplate").html()));
+      this.infobox = new InfoBox($('#infobox'), Handlebars.compile($("#infoboxTemplate").html()));
 
       var vis = initVis("#chart", WIDTH, HEIGHT);
       var pack = configurePack(WIDTH - 4, HEIGHT - 4);
@@ -18,13 +18,10 @@ define(['Tooltip'], function (Tooltip) {
       var that = this;
       node.append("circle")
           .attr("r", function(d) { return d.r; })
-          .on("mouseover", function (d, i) { that.showDetails(d, i, this); })
-          .on("mouseout", function (d, i) { that.hideDetails(d, i, this); });
-
-      node.filter(function(d) { return !d.children; }).append("text")
-          .attr("text-anchor", "middle")
-          .attr("dy", ".3em")
-          .text(function(d) { return d.name.substring(0, d.r / 3); });
+          .style("fill", Politicians.getPrimaryColor)
+          .style("stroke", Politicians.getSecondaryColor)
+          .on("mouseover", function (d, i) { that.hilight(d, i, this); })
+          .on("mouseout", function (d, i) { that.unhilight(d, i, this); });
     }
 
      var initVis = function (selector, width, height) {
@@ -46,23 +43,34 @@ define(['Tooltip'], function (Tooltip) {
         return vis.data([data]).selectAll("g.node")
             .data(pack.nodes)
             .enter().append("g")
-            .attr("class", function(d) { return d.children ? "node" : "leaf node"; })
+            .attr("class", function(d) { return d.children ? "party" : "person"; })
             .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
     }
 
-    PackChart.prototype.showDetails = function (d, i, element) {
-      d3.select(element).select("circle")
-        .style("stroke", "black")
-        .style("stroke-width", 2);
-      // this refers to the 
-      this.tooltip.show(d);
+    PackChart.prototype.hilight = function (d, i, element) {
+      // if it's a leaf node, also hilight the party and show
+      // an infobox
+      if (!d.children && d.group) {
+        var personDatum = d, that = this;
+        d3.selectAll('.party circle').each(function (d, i) {
+          if (d.name === personDatum.group) {
+            that.hilight(d, i, this);
+          }
+        });
+        this.infobox.show(d);  
+      }
+      d3.select(element)
+        .style("stroke-width", 2)
+        .style("fill-opacity", 1)
+        .style("stroke", Politicians.getTertiaryColor(d));
+      
     }
 
-    PackChart.prototype.hideDetails = function (d, i, element) {
-      d3.select(element).select("circle")
-          .style("stroke", "blue")
+    PackChart.prototype.unhilight = function (d, i, element) {
+      d3.select(element)
+          .style("fill-opacity", "")
           .style("stroke-width", 1);
-      this.tooltip.hide();
+      this.infobox.hide();
     }
 
     return PackChart;

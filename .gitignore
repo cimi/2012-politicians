@@ -6,3 +6,5 @@ node_modules
 components/
 app/components/
 build/
+test/data
+test/scripts

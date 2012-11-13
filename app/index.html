@@ -19,21 +19,15 @@
     <body>
     <div class="container" style="margin-top:50px">
         <div id="chart"></div>
-
+        <div id="infobox"></div>
     </div>
 
-    <script id="tooltipTemplate" type="text/x-handlebars-template">
-        <div id="infobox" class="hero-unit">
-            <p>{{name}}</p>
-            <ul>
-                <li>Attendance: {{attendance}}</li>
-                <li>Rebel: {{rebel}}</li>
-                <li></li>
-                <li>RequireJS</li>
-            </ul>
-            <p>installed.</p>
-            <h3>Enjoy coding! - Yeoman</h3>
-        </div>
+    <script id="infoboxTemplate" type="text/x-handlebars-template">
+        <p>{{name}}</p>
+        <ul>
+            <li>Attendance: {{attendance}}%</li>
+            <li>Rebel: {{rebel}}%</li>
+        </ul>
     </script>
 
 

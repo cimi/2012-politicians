@@ -8,19 +8,13 @@
 <body>
   <div id="mocha"></div>
   <script src="lib/mocha/mocha.js"></script>
+  <script src="scripts/vendor/require.js"></script>
+  <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
   <script>mocha.setup('bdd')</script>
 
   <!-- assertion framework -->
   
   <script src="lib/chai.js"></script>
-    
-      
-  <script>expect = chai.expect</script>
-      
-    
-  
-
-  <!-- -->
 
   <!-- include source files here... -->
 
@@ -28,13 +22,14 @@
   <script>
   // replace this by your own specs
   (function() {
-    describe('Give it some context', function() {
-      describe('maybe a bit more context here', function() {
-
-        it('should run here few assertions', function() {
-
+    describe('app', function() {
+      describe('#getPoliticians()', function() {
+        it('should return four major groups', function() {
+          require(['app'], function (app) {
+            var result = app.getPoliticians();
+            console.log(result);
+          });
         });
-
       });
     });
   })();
