@@ -1,10 +1,13 @@
 define(['Tooltip'], function (Tooltip) {
     var WIDTH = HEIGHT = 960;
     
-    var PackChart = function (data, tooltip) {
+    var PackChart = function (data) {
+      this.tooltip = new Tooltip(Handlebars.compile($("#tooltipTemplate").html()));
+
       var vis = initVis("#chart", WIDTH, HEIGHT);
       var pack = configurePack(WIDTH - 4, HEIGHT - 4);
       var node = configureNodes(vis, data, pack);
+
 
       node.append("title")
           .text(function(d) { 

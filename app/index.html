@@ -18,22 +18,26 @@
     </head>
     <body>
     <div class="container" style="margin-top:50px">
-        <!-- div class="hero-unit">
-            <h1>Wotcha!</h1>
-            <p>You now have</p>
+        <div id="chart"></div>
+
+    </div>
+
+    <script id="tooltipTemplate" type="text/x-handlebars-template">
+        <div id="infobox" class="hero-unit">
+            <p>{{name}}</p>
             <ul>
-                <li>HTML5 Boilerplate</li>
-                <li>Twitter Bootstrap</li>
-                <li>Twitter Bootstrap plugins</li>
+                <li>Attendance: {{attendance}}</li>
+                <li>Rebel: {{rebel}}</li>
+                <li></li>
                 <li>RequireJS</li>
             </ul>
             <p>installed.</p>
             <h3>Enjoy coding! - Yeoman</h3>
-        </div -->
-    </div>
-    <div id="chart"></div>
+        </div>
+    </script>
 
-        <!--[if lt IE 7]>
+
+        <!--[if lt IE 9]>
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
 
@@ -70,6 +74,7 @@
 
     <!-- build:js scripts/amd-app.js -->
     <script src="components/d3/d3.v2.js"></script>
+    <script src="components/handlebars/handlebars-1.0.0-rc.1.js"></script>
     <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
     <!-- endbuild -->
 

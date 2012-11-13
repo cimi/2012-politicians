@@ -7,9 +7,8 @@ require.config({
   }
 });
  
-require(['app', 'pack'], function(app, PackChart) {
+require(['app', 'pack', 'Tooltip'], function(app, PackChart, Tooltip) {
   var politicians = app.getPoliticians();
   var data = politicians.getSenateByParty();
-
   var chart = new PackChart(data);
 });

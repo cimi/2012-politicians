@@ -1,11 +1,11 @@
 define([], function () {
-    var Tooltip = function (el, template) {
-        this.el = el;
+    var Tooltip = function (template) {
         this.template = template;
     };
 
     Tooltip.prototype.show = function (data) {
-        this.template.render(data);
+        var rendered = this.template(data);
+        $(rendered).appendTo('body');
         // TODO: set position
         // $(this.el).show();
 
@@ -13,4 +13,5 @@ define([], function () {
     Tooltip.prototype.hide = function () {
         // $(this.el).hide();
     };
+    return Tooltip;
 });
