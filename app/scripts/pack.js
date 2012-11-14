@@ -2,7 +2,7 @@ define(['jquery', 'InfoBox', 'politicians'], function ($, InfoBox, Politicians) 
     var WIDTH = HEIGHT = 700;
     var color = { 'PD-L' : 'orange', 'PSD' : 'red', 'PNL' : 'yellow', 'UDMR' : 'green' };
     var PackChart = function (data) {
-      this.infobox = new InfoBox($('#infobox'), Handlebars.compile($("#infoboxTemplate").html()));
+      this.infobox = new InfoBox($('#infobox'), $("#infoboxTemplate"));
 
       var vis = initVis("#chart", WIDTH, HEIGHT);
       var pack = configurePack(WIDTH - 4, HEIGHT - 4);

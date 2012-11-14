@@ -1,7 +1,7 @@
 define([], function () {
-    var InfoBox = function ($el, template) {
+    var InfoBox = function ($el, $template) {
         this.$el = $el;
-        this.template = template;
+        this.template = Handlebars.compile($template.html());
     };
 
     InfoBox.prototype.show = function (data) {
@@ -14,5 +14,15 @@ define([], function () {
     InfoBox.prototype.hide = function () {
         this.$el.hide();
     };
+
+    // helper function that returns the appropriate Bootstrap
+    // class name based on the perceived level
+    // i.e.: if below 20% return red (important) because he sucks
+    Handlebars.registerHelper('level', function (percentage) {
+        if (percentage < 20) return 'important';
+        if (percentage < 60) return 'warning';
+        if (percentage < 80) return 'info';
+        return 'success';
+    });
     return InfoBox;
 });
