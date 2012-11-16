@@ -8,3 +8,4 @@ app/components/
 build/
 test/data
 test/scripts
+*.swp

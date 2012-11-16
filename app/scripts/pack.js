@@ -4,27 +4,12 @@ define(['jquery', 'InfoBox', 'politicians'], function ($, InfoBox, Politicians) 
     var PackChart = function (data) {
       this.infobox = new InfoBox($('#infobox'), $("#infoboxTemplate"));
 
-      var vis = initVis("#chart", WIDTH, HEIGHT);
-      var pack = configurePack(WIDTH - 4, HEIGHT - 4);
-      var node = configureNodes(vis, data, pack);
+      this.vis = initVis("#chart", WIDTH, HEIGHT);
+      this.pack = configurePack(WIDTH - 4, HEIGHT - 4);
+      this.update(data);
+   }
 
-
-      node.append("title")
-          .text(function(d) { 
-            return d.name + (d.children ? "" : ": " + d3.format(",%")(d.attendance / 100)); 
-          });
-
-      // pass the context to the event handling functions
-      var that = this;
-      node.append("circle")
-          .attr("r", function(d) { return d.r; })
-          .style("fill", Politicians.getPrimaryColor)
-          .style("stroke", Politicians.getSecondaryColor)
-          .on("mouseover", function (d, i) { that.hilight(d, i, this); })
-          .on("mouseout", function (d, i) { that.unhilight(d, i, this); });
-    }
-
-     var initVis = function (selector, width, height) {
+    var initVis = function (selector, width, height) {
         return d3.select(selector).append("svg")
             .attr("width", width)
             .attr("height", height)
@@ -37,14 +22,6 @@ define(['jquery', 'InfoBox', 'politicians'], function ($, InfoBox, Politicians) 
         return d3.layout.pack()
             .size([width, height])
             .value(function(d) { return d.attendance; });
-    }
-
-    var configureNodes = function (vis, data, pack) {
-        return vis.data([data]).selectAll("g.node")
-            .data(pack.nodes)
-            .enter().append("g")
-            .attr("class", function(d) { return d.children ? "party" : "person"; })
-            .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
     }
 
     PackChart.prototype.hilight = function (d, i, element) {
@@ -71,6 +48,31 @@ define(['jquery', 'InfoBox', 'politicians'], function ($, InfoBox, Politicians) 
           .style("fill-opacity", "")
           .style("stroke-width", 1);
       this.infobox.hide();
+    }
+
+    PackChart.prototype.update = function (data) {
+      var node = this.vis.data([data]).selectAll("g.node")
+            .data(this.pack.nodes)
+            .enter().append("g")
+            .attr("class", function(d) { return d.children ? "party" : "person"; });
+
+      var that = this; 
+      
+      node.append("title")
+          .text(function(d) { 
+            return d.name + (d.children ? "" : ": " + d3.format(",%")(d.attendance / 100)); 
+          });
+
+      
+       node.append("circle")
+          .attr("r", function(d) { return d.r; })
+          .style("fill", Politicians.getPrimaryColor)
+          .style("stroke", Politicians.getSecondaryColor)
+          .on("mouseover", function (d, i) { that.hilight(d, i, this); })
+          .on("mouseout", function (d, i) { that.unhilight(d, i, this); })
+          .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+      return node;
     }
 
     return PackChart;
