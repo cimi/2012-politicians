@@ -16,8 +16,12 @@ require(['app', 'pack'], function(app, PackChart) {
   // and fill with members from only one
   // party
   console.log(data);
-  $('#udmrBtn').click(function (e) {
-    var allUdmr = data.children[0];
-    chart.update(allUdmr);
+  var $btnGroup = $('#partyBtnGroup');
+  $.each(data.children, function (idx, party) {
+    var btn = $('<a href="#" class="btn" id="' + party.name + '">' + party.name + '</a>');
+    btn.click(function (e) {
+      chart.update(data.children[idx]);
+    });
+    $btnGroup.append(btn);
   });
 });
