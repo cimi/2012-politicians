@@ -15,10 +15,10 @@ require(['app', 'pack'], function(app, PackChart) {
   // create buttons to update the chart
   // and fill with members from only one
   // party
-  console.log(data);
   var $btnGroup = $('#partyBtnGroup');
+  $('<a href="#" class="btn">Total</a>').click(function (e) { chart.update(data); }).appendTo($btnGroup);
   $.each(data.children, function (idx, party) {
-    var btn = $('<a href="#" class="btn" id="' + party.name + '">' + party.name + '</a>');
+    var btn = $('<a href="#" class="btn" id="' + party.name + '">' + party.name + ' (' + party.children.length + ')</a>');
     btn.click(function (e) {
       chart.update(data.children[idx]);
     });

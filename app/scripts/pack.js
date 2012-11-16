@@ -51,26 +51,24 @@ define(['jquery', 'InfoBox', 'politicians'], function ($, InfoBox, Politicians) 
     }
 
     PackChart.prototype.update = function (data) {
+      // update data
       var node = this.vis.data([data]).selectAll("g.node")
-            .data(this.pack.nodes)
-            .enter().append("g")
-            .attr("class", function(d) { return d.children ? "party" : "person"; });
+            .data(this.pack.nodes);
 
+      // add new elements 
       var that = this; 
-      
-      node.append("title")
-          .text(function(d) { 
-            return d.name + (d.children ? "" : ": " + d3.format(",%")(d.attendance / 100)); 
-          });
-
-      
-       node.append("circle")
+      node.enter().append("g")
+          .attr("class", function(d) { return d.children ? "party" : "person"; })
+          .append("circle")
           .attr("r", function(d) { return d.r; })
           .style("fill", Politicians.getPrimaryColor)
           .style("stroke", Politicians.getSecondaryColor)
           .on("mouseover", function (d, i) { that.hilight(d, i, this); })
           .on("mouseout", function (d, i) { that.unhilight(d, i, this); })
           .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+      // remove old elements
+      node.exit().remove();
 
       return node;
     }
