@@ -174,7 +174,7 @@
         .on('keypress', $.proxy(this.keypress, this))
         .on('keyup',    $.proxy(this.keyup, this))
 
-      if ($.browser.webkit || $.browser.msie) {
+      if ($.browser.webkit || $.browser.chrome || $.browser.msie) {
         this.$element.on('keydown', $.proxy(this.keydown, this))
       }
 

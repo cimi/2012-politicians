@@ -20,7 +20,18 @@ define(['jquery'], function ($) {
             }
         });
         return result;
-    }
+    };
+
+    Politicians.prototype.getSenateList = function () {
+      var result = [];
+      $.each(this._data.senate, function (idx, senator) {
+        // just get the leaf nodes
+        if (!senator.children) {
+          result.push(senator);
+        }
+      });
+      return result;
+    };
 
     var COLORS = { 
         'PD-L' : ['#fa720e', '#040b9a', 'white'],
