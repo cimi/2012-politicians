@@ -4,7 +4,7 @@ define(['jquery', 'InfoBox', 'politicians'], function ($, InfoBox, Politicians) 
       this.infobox = new InfoBox($('#infobox'), $("#infoboxTemplate"));
 
       this.vis = initVis("#chart", WIDTH, HEIGHT);
-      this.pack = configurePack(WIDTH - 4, HEIGHT - 4);
+      this.pack = configurePack();
       this.hilighted = [];
       this.update(data);
    }
@@ -18,9 +18,9 @@ define(['jquery', 'InfoBox', 'politicians'], function ($, InfoBox, Politicians) 
             .attr("transform", "translate(2, 2)");
     }
 
-    var configurePack = function (width, height) {
+    var configurePack = function () {
         return d3.layout.pack()
-            .size([width, height])
+            .size([WIDTH - 4, HEIGHT - 4])
             .value(function(d) { return d.attendance; });
     }
 
@@ -53,7 +53,7 @@ define(['jquery', 'InfoBox', 'politicians'], function ($, InfoBox, Politicians) 
         });
         this.infobox.show(d);  
       }
-      d3.select(element)
+      d3.select(element).transition().duration(500)
         .style("stroke-width", 2)
         .style("fill-opacity", 1)
         .style("stroke", Politicians.getTertiaryColor(d));
@@ -69,28 +69,34 @@ define(['jquery', 'InfoBox', 'politicians'], function ($, InfoBox, Politicians) 
         });
         return;
       }
-      d3.select(element)
-          .style("fill-opacity", "")
+      d3.select(element).transition().duration(500)
+          .style("fill-opacity", "0.7")
           .style("stroke-width", 1);
       this.infobox.hide();
     }
 
     PackChart.prototype.update = function (data) {
       // update data
-      var node = this.vis.data([data]).selectAll("g.node")
-            .data(this.pack.nodes);
+      var dataset = this.vis.data([data]);
+      this.pack = configurePack();
+      // remove all previous nodes
+      this.vis.selectAll('circle').transition().duration(500)
+          .attr("r", function (d) { return 0; });
+      dataset.selectAll("g").data([]).exit().remove();
+      var node = dataset.selectAll("g").data(this.pack.nodes);
 
-      // add new elements 
       var that = this; 
       node.enter().append("g")
           .attr("class", function(d) { return d.children ? "party" : "person"; })
           .append("circle")
-          .attr("r", function(d) { return d.r; })
           .style("fill", Politicians.getPrimaryColor)
           .style("stroke", Politicians.getSecondaryColor)
           .on("mouseover", function (d, i) { that.hilight(d, this); })
           .on("mouseout", function (d, i) { that.unhilight(this); })
           .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+      this.vis.selectAll('circle').transition().duration(1000)
+          .attr("r", function(d) { return d.r; });
 
       // remove old elements
       node.exit().remove();
