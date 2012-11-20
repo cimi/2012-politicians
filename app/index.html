@@ -16,10 +16,19 @@
         <link rel="stylesheet" href="styles/main.css">
         <script src="scripts/vendor/modernizr.min.js"></script>
     </head>
-    <body>
+    <body style="text-align: center;">
     <div class="container" style="margin-top:50px">
-        <div href="#" class="btnGroup" id="partyBtnGroup"></div> 
-        <input type="text" id="typeaheadSearch" />
+        <div class="btn-toolbar">
+            <div class="btn-group" id="chambersBtnGoup" data-toggle="buttons-radio">
+                <a href="#" class="btn">Toti parlamentarii</a>
+                <a href="#" class="btn">Senatori</a>
+                <a href="#" class="btn">Deputati</a>
+            </div>
+            <div class="btn-group" id="partyBtnGroup" data-toggle="buttons-radio"></div>
+        </div>
+        <div id="search">
+            <h3>Cautare:</h3><input type="text" id="typeaheadSearch" />
+        </div>
         <div id="chart"></div>
         <div id="infobox"></div>
     </div>
