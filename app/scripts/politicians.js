@@ -43,12 +43,12 @@ define(['jquery'], function ($) {
         return result;
     };
 
-    Politicians.prototype.getList = function (chamber) {
+    Politicians.prototype.getList = function (chamber, party) {
       var result = [];
       if (chamber != 'senate' && chamber != 'deputies') {
-        return this.getList('senate').concat(this.getList('deputies'));
+        return this.getList('senate', party).concat(this.getList('deputies', party));
       }
-      $.each(this._data[chamber], function (idx, politician, party) {
+      $.each(this._data[chamber], function (idx, politician) {
         // just get the leaf nodes
         if (!politician.children) {
           if (!party || politician.group === party) {

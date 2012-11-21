@@ -44,7 +44,10 @@ define(['jquery', 'politicians', 'pack', 'typeahead'],
           return name;
         }
       };
-      $('#typeaheadSearch').typeahead(typeaheadOptions);
+      // clear the element and re-add it again
+      // couldn't find a way just to update the data for the typeahead in Bootstrap
+      $('#typeaheadSearch').remove();
+      $('<input id="typeaheadSearch" />').appendTo('#search').typeahead(typeaheadOptions);
     },
     initToolbar : function (data) {
       // create buttons to update the chart
@@ -60,6 +63,9 @@ define(['jquery', 'politicians', 'pack', 'typeahead'],
           .click(function (e) {
             // the update method alters the order
             // of the data, so we re-sort it again
+            // so the indexes of the buttons match
+            var selectedChamber = $chambersBtnGroup.find('.active').data('chamber');
+            that.initTypeahead(that.politicians.getList(selectedChamber));
             that.chart.update(data);
             data.children.sort(function (a, b) { return a.children.length < b.children.length });
           }).appendTo($btnGroup);
@@ -67,7 +73,9 @@ define(['jquery', 'politicians', 'pack', 'typeahead'],
           var $btn = $('<a href="#" class="btn" id="' + party.name + '">' + party.name + ' (' + party.children.length + ')</a>');
           if (party.name === selected) $btn.addClass('active');
           $btn.click(function (e) {
+            var selectedChamber = $chambersBtnGroup.find('.active').data('chamber');
             that.chart.update(data.children[idx]);
+            that.initTypeahead(that.politicians.getList(selectedChamber, party.name));
           });
           $btnGroup.append($btn);
         });
