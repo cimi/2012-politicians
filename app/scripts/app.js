@@ -57,8 +57,11 @@ define(['jquery', 'politicians', 'pack', 'typeahead'],
       var initPartyBtnGroup = function (data, selected) {
         var $btnGroup = $('#partyBtnGroup').empty();
         $('<a href="#" class="btn">Orice partid</a>')
-          .click(function (e) { 
-            that.chart.update(data); 
+          .click(function (e) {
+            // the update method alters the order
+            // of the data, so we re-sort it again
+            that.chart.update(data);
+            data.children.sort(function (a, b) { return a.children.length < b.children.length });
           }).appendTo($btnGroup);
         $.each(data.children, function (idx, party) {
           var $btn = $('<a href="#" class="btn" id="' + party.name + '">' + party.name + ' (' + party.children.length + ')</a>');
