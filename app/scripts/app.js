@@ -18,6 +18,24 @@ define(['jquery', 'politicians', 'pack', 'typeahead'],
             dataType : "json"
         });
       });
+
+      // mark the ones who are running for office again
+      $.ajax({
+        url : prefix + 'new-candidates.json',
+        success : function (data) {
+            /*$.each(data, function (idx, currentCandidate) {
+                sources.forEach(function (source) {
+                    var matches = politicians[source].filter(function (politician) { 
+                        console.log(politician.name);
+                        return politician.name == currentCandidate.name;
+                    });
+                    if (matches.length > 0) console.log(matches);
+                });
+            });*/
+        },
+        async : false,
+        dataType : "json"
+      });
       this.politicians = new Politicians(politicians);
       return this.politicians;
     },
@@ -96,6 +114,8 @@ define(['jquery', 'politicians', 'pack', 'typeahead'],
             that.chart.update(that.politicians.getByParty(chamber, party));
           } else {
             that.chart.update(data);
+            // same as above
+            data.children.sort(function (a, b) { return a.children.length < b.children.length });
           }
           that.initTypeahead(that.politicians.getList(chamber, party));
         });

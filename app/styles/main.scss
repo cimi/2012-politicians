@@ -21,8 +21,18 @@ text {
   text-align:center;
 }
 
-#infobox {
-	position: absolute;
-	left: 25px;
-	top: 25px;
+.infobox-container {
+    min-height: 200px;
+    max-height: 200px;
+    width: 600px;
+    margin: 20px auto;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    table.table {
+        margin: 20px auto;
+        width: 80%;
+    }
+}
+.container {
+    margin-top: 20px;
 }
