@@ -1,4 +1,4 @@
-define(['jquery'], function ($) {
+define('politicians', ['jquery'], function ($) {
 	var Politicians = function (rawData) {
         this._data = rawData;
     }
@@ -64,8 +64,8 @@ define(['jquery'], function ($) {
         'PNL' : ['#fcdb00', '#015972', 'white'],
         'PSD' : ['#ce0013', '#fefefe', 'blue'],
         'UDMR' : ['#067622', '#fe0000', 'white'],
-        'Independent' : ['#fefefe', 'brown', 'red'],
-        'Minoritati' : ['#fefefe', 'brown', 'red'],
+        'Independent' : ['#f0f0f0', 'brown', 'red'],
+        'Minoritati' : ['#f0f0f0', 'brown', 'red'],
         'senate' : ['white', 'pink', 'white'],
         'deputies' : ['white', 'pink', 'white'],
         'all' : ['white', 'pink', 'white']
@@ -81,6 +81,63 @@ define(['jquery'], function ($) {
 
     Politicians.getTertiaryColor = function (obj) {
         return obj.group ? COLORS[obj.group][2] : COLORS[obj.name][2];
+    }
+
+    Politicians.checkSimilarNames = function (a, b) {
+        var checkFirstNames = function (name1, name2) {
+            var getLetters = function (name) {
+              return name.toLowerCase().split("").sort();
+            };
+            var shortest = function (a, b, inverted) {
+              if (a.length < b.length) {
+                if (!!inverted) {
+                  return b;
+                } else {
+                  return a;
+                } 
+              } else {
+                if (!!inverted) {
+                  return a;
+                } else {
+                  return b;
+                }
+              }
+            };
+
+            var letters1 = getLetters(name1)
+              , letters2 = getLetters(name2),
+              s = shortest(letters1, letters2), l, valid = true;
+            while (s.length > 0) {
+              if (letters1[0] === letters2[0]) {
+                letters1.shift();
+                letters2.shift();
+              } else {
+                if (letters1[0] > letters2[0]) {
+                  letters2.shift();
+                } else {
+                  letters1.shift();
+                }
+              }
+              s = shortest(letters1, letters2);
+              l = shortest(letters1, letters2, true);
+              if (s.length > 0 && s[0] < l[0]) {
+                valid = false;
+                break;
+              }
+            }
+            return valid;
+        };
+
+        var extractFirstNames = function (name) {
+            var parts = name.split(" ");
+            return parts.slice(0, parts.length - 1).join(" ");
+        }
+
+        var extractLastName = function (name) {
+            var parts = name.split(" ");
+            return parts[parts.length - 1];
+        }
+        return extractLastName(a.name) == extractLastName(b.name) && checkFirstNames(extractFirstNames(a.name), extractFirstNames(b.name));
     }
 
     return Politicians;

@@ -21,20 +21,6 @@ define(['jquery', 'politicians', 'pack', 'typeahead'],
     return parts[parts.length - 1];
   }
 
-  function checkFirstNames(name1, name2) {
-    var getLetters = function (name) {
-      name = name.split(" ");
-      name = name.slice(0, name.length - 1).join("");
-      return name.toLowerCase.split("").sort();
-    }
-
-    var letters1 = getLetters(name1), letters2 = getLetters(name2);
-    while (letters1.length > 0 && letters2.length > 0) {
-      break;
-    }
-  }
-
-var count=0;
   return {
   	loadPoliticians : function () {
       var prefix = 'data/'
@@ -55,26 +41,23 @@ var count=0;
       $.ajax({
         url : prefix + 'candidates.json',
         success : function (data) {
-            $.each(data, function (idx, currentCandidate) {
-                sources.forEach(function (source) {
-                    var matches = politicians[source].filter(function (politician) {
-                        // flag the ones whose last name is the same but first names differ
-                        // if (getLastName(politician.name) === getLastName(currentCandidate.name) && politician.name !== currentCandidate.name) {
-                        //   console.log(politician);
-                        //   console.log(currentCandidate);
-                        //   console.log('==== ' + count++);
-                        // }
-                        return politician.name === currentCandidate.name;
-                    });
-                    if (matches.length > 0) {
-                      matches[0].runningAgain = true;
-                      matches[0].newGroup = currentCandidate.party;
-                      matches[0].newCircumscription = currentCandidate.room 
-                        + currentCandidate.college + " " + toTitleCase(currentCandidate.county);
-                    }
-
-                });
+          $.each(data, function (idx, currentCandidate) {
+            sources.forEach(function (source) {
+              var matches = politicians[source].filter(function (politician) {
+                return Politicians.checkSimilarNames(politician, currentCandidate);
+              });
+              if (matches.length == 1) {
+                var match = matches[0];
+                match.runningAgain = true;
+                match.newGroup = currentCandidate.party;
+                match.newCircumscription = currentCandidate.room 
+                    + currentCandidate.college + " " + toTitleCase(currentCandidate.county);
+              } else if (matches.length > 1) { 
+                // TODO: debug candidates who get more than one match, there are about 9 
+                // console.log(matches, currentCandidate);
+              } 
             });
+          });
         },
         async : false,
         dataType : "json"
