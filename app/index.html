@@ -17,9 +17,8 @@
         <script src="scripts/vendor/modernizr.min.js"></script>
     </head>
     <body style="text-align: center;">
-    <div class="page-header"><h1>Prezența politicienilor în mandatul 2008-2012
+    <div class="page-header"><h1>Prezența parlamentarilor în mandatul 2008-2012
         <small>via <a href="http://hartapoliticii.ro">Harta Politicii</a></h1></div>
-    <div class="infobox-container"><div id="infobox"></div></div>
     <div class="container">
         <div class="btn-toolbar">
             <div class="btn-group" id="chambersBtnGroup" data-toggle="buttons-radio">
@@ -32,15 +31,17 @@
         <div id="search">
             <h3>Căutare după nume:</h3><input type="text" id="typeaheadSearch" />
         </div>
+        <div class="infobox-container"><div id="infobox"></div></div>
+
         <div id="chart"></div>
     </div>
 
     <script id="infoboxTemplate" type="text/x-handlebars-template">
         <h2>{{name}}, {{group}}</h2>
         <table class="table">
-            <tr><td>Prezență:</td> <td><span class="badge badge-{{level attendance}}">{{attendance}}%</span></td></tr>
+            <tr><td>Prezență (rebel):</td> <td><span class="badge badge-{{level attendance}}">{{attendance}}%</span></td></tr>
             <tr><td>Voturi împotriva partidului:</td> <td>{{rebel}}%</td></tr>
-            <tr><td>Candidat 2012: </td><td></td></tr>
+            <tr><td>Candidat 2012: </td><td>{{runningAgain}}</td></tr>
         </table>
     </script>
 

@@ -24,5 +24,15 @@ define([], function () {
         if (percentage < 80) return 'info';
         return 'success';
     });
+
+    Handlebars.registerHelper('runningAgain', function () {
+        var output = 'Nu';
+        console.log(this);
+        if (this.runningAgain) {
+            output = this.newGroup + ", colegiul " + this.newCircumscription;
+        }
+        return output;
+    });
+
     return InfoBox;
 });

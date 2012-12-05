@@ -8,6 +8,7 @@
 <body>
   <div id="mocha"></div>
   <script src="lib/mocha/mocha.js"></script>
+  <script src="lib/expect.js"></script>
   <script src="scripts/vendor/require.js"></script>
   <script data-main="scripts/main" src="scripts/vendor/require.js"></script>
   <script>mocha.setup('bdd')</script>
@@ -21,15 +22,29 @@
   <!-- include spec files here... -->
   <script>
   // replace this by your own specs
+  function checkFirstNames(name1, name2) {
+    var getLetters = function (name) {
+      name = name.split(" ");
+      name = name.slice(0, name.length - 1).join("");
+      return name.toLowerCase().split("").sort();
+    }
+
+    var letters1 = getLetters(name1)
+      , letters2 = getLetters(name2)
+      , pos1 = 0
+      , pos2 = 0;
+
+    // TODO: check if they match
+    }
+    return letters1.length == 0 || letters2.length == 0;
+  }
+
   (function() {
-    describe('app', function() {
-      describe('#getPoliticians()', function() {
-        it('should return four major groups', function() {
-          require(['app'], function (app) {
-            var result = app.getPoliticians();
-            console.log(result);
-          });
-        });
+    describe('app', function () {
+      it('should return -1 when the value is not present', function() {
+        expect(checkFirstNames("Alex Ciminian", "Alexandru Ciminian")).to.be.ok();
+        expect(checkFirstNames("Marcel Ion Popescu", "Alexandru Popescu")).to.not.be.ok();
+        expect(checkFirstNames("Ion Vasile Gherla", "Vasile Oaie")).to.be.ok();
       });
     });
   })();

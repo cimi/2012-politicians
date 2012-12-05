@@ -10,3 +10,4 @@ test/data
 test/scripts
 *.swp
 *~
+.DS*
