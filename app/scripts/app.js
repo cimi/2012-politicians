@@ -132,16 +132,15 @@ define(['jquery', 'politicians', 'pack', 'typeahead'],
           , $btnGroup = $('#partyBtnGroup').empty()
           , data = getData(false);
 
-        $btnGroup.append('<a href="#" class="btn active" id="all">Orice partid</a>');
+        $btnGroup.append('<a href="#" class="btn" id="all">Orice partid</a>');
         $.each(data.children, function (idx, party) {
           var $btn = $('<a href="#" class="btn" id="' + party.name + '">' + party.name + ' (' + party.children.length + ')</a>');
           if (prev == party.name) {
             $btn.addClass('active');
-            $btn.siblings.removeClass('active');
           }
           $btnGroup.append($btn);
         });
-
+        if (!$btnGroup.find('.active').length) $btnGroup.find('#all').addClass('active');
         $btnGroup.on('click', 'a', $.proxy(updatePage, that));
       };
 
