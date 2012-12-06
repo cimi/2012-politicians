@@ -18,7 +18,7 @@
     </head>
     <body style="text-align: center;">
     <div class="page-header"><h1>Prezența parlamentarilor în mandatul 2008-2012
-        <small>via <a href="http://hartapoliticii.ro">Harta Politicii</a></h1></div>
+        <small>via <a href="http://hartapoliticii.ro">Harta Politicii</a></small></h1></div>
     <div class="container">
         <div class="btn-toolbar">
             <div class="btn-group" id="chambersBtnGroup">
@@ -45,11 +45,13 @@
     <script id="infoboxTemplate" type="text/x-handlebars-template">
         <h2>{{name}}, {{group}}</h2>
         <table class="table">
-            <tr><td>Prezență (rebel):</td> <td><span class="badge badge-{{level attendance}}">{{attendance}}%</span></td></tr>
-            <tr><td>Voturi împotriva partidului:</td> <td>{{rebel}}%</td></tr>
-            <tr><td>Candidat 2012: </td><td>{{runningAgain}}</td></tr>
+            <tr><td>Prezență (rebel):</td> <td style="text-align: right"><span class="badge badge-{{level attendance}}">{{attendance}}%</span></td></tr>
+            <tr><td>Voturi împotriva partidului:</td> <td style="text-align: right">{{rebel}}%</td></tr>
+            <tr><td>Candidat 2012: </td><td style="text-align: right">{{runningAgain}}</td></tr>
         </table>
     </script>
+
+    <a href="https://github.com/cimi/infographic-politicians"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
 
 
         <!--[if lt IE 9]>
@@ -64,12 +66,12 @@
         
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <!--script>
-            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+        <script>
+            var _gaq=[['_setAccount','UA-6170776-1'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script-->
+        </script>
     
     <!-- build:js scripts/plugins.js -->
     <script src="scripts/vendor/bootstrap/bootstrap-typeahead.js"></script>
