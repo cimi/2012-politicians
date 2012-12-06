@@ -27,7 +27,6 @@ define([], function () {
 
     Handlebars.registerHelper('runningAgain', function () {
         var output = 'Nu';
-        console.log(this);
         if (this.runningAgain) {
             output = this.newGroup + ", colegiul " + this.newCircumscription;
         }

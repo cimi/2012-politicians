@@ -4,8 +4,9 @@ define('politicians', ['jquery'], function ($) {
     }
 
     // TODO: refactor this, it's ugly
-    Politicians.prototype.getByParty = function (chamber, party) {
+    Politicians.prototype.getByParty = function (chamber, party, runningAgain) {
         if (!chamber) chamber = 'all';
+        if (party == 'all') party = null;
         var result = { 'name' : chamber, 'children' : []}
           , populateResult = $.proxy(function (chamber, result) {
             $.each(this._data[chamber], function (idx, politician) {
@@ -40,18 +41,30 @@ define('politicians', ['jquery'], function ($) {
                 }
             });
         }
+
+        var runningAgainFilter = function (politician) {
+          return politician.runningAgain;
+        };
+
+        if (runningAgain && party) {
+          result.children = result.children.filter(runningAgainFilter);
+        } else if (runningAgain && !party) {
+          $.each(result.children, function (idx, party) {
+            party.children = party.children.filter(runningAgainFilter);
+          });
+        }
         return result;
     };
 
-    Politicians.prototype.getList = function (chamber, party) {
+    Politicians.prototype.getList = function (chamber, party, runningAgain) {
       var result = [];
       if (chamber != 'senate' && chamber != 'deputies') {
-        return this.getList('senate', party).concat(this.getList('deputies', party));
+        return this.getList('senate', party, runningAgain).concat(this.getList('deputies', party, runningAgain));
       }
       $.each(this._data[chamber], function (idx, politician) {
         // just get the leaf nodes
         if (!politician.children) {
-          if (!party || politician.group === party) {
+          if ((!party || politician.group === party) && (!runningAgain || politician.runningAgain)) {
             result.push(politician);  
           }
         }

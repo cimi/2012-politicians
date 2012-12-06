@@ -21,12 +21,18 @@
         <small>via <a href="http://hartapoliticii.ro">Harta Politicii</a></h1></div>
     <div class="container">
         <div class="btn-toolbar">
-            <div class="btn-group" id="chambersBtnGroup" data-toggle="buttons-radio">
-                <a href="#" class="btn" data-chamber="all">Toți parlamentarii</a>
+            <div class="btn-group" id="chambersBtnGroup">
+                <a href="#" class="btn active" data-chamber="all">Toți parlamentarii</a>
                 <a href="#" class="btn" data-chamber="senate">Senatori</a>
                 <a href="#" class="btn" data-chamber="deputies">Deputați</a>
-            </div><br /><br />
-            <div class="btn-group" id="partyBtnGroup" data-toggle="buttons-radio"></div>
+            </div>
+            <div class="btn-group" id="runningAgainBtnGroup">
+                <a href="#" class="btn active" data-value="false">Toți parlamentarii</a>
+                <a href="#" class="btn" data-value="true">Candidați 2012</a>
+            </div>
+            <br /><br />
+            <div class="btn-group" id="partyBtnGroup">
+            </div>
         </div>
         <div id="search">
             <h3>Căutare după nume:</h3><input type="text" id="typeaheadSearch" />

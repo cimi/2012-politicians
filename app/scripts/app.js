@@ -99,53 +99,56 @@ define(['jquery', 'politicians', 'pack', 'typeahead'],
       // party
       if (!data) data = this.politicians.getByParty()
       var $chambersBtnGroup = $('#chambersBtnGroup')
-        , that = this;
+        , $runningAgain = $('#runningAgainBtnGroup')
+        , politicians = this.politicians, that = this;
 
-      var initPartyBtnGroup = function (data, selected) {
-        var $btnGroup = $('#partyBtnGroup').empty();
-        $('<a href="#" class="btn">Orice partid</a>')
-          .click(function (e) {
-            // the update method alters the order
-            // of the data, so we re-sort it again
-            // so the indexes of the buttons match
-            var selectedChamber = $chambersBtnGroup.find('.active').data('chamber');
-            that.initTypeahead(that.politicians.getList(selectedChamber));
-            that.chart.update(data);
-            data.children.sort(function (a, b) { return a.children.length < b.children.length });
-          }).appendTo($btnGroup);
+
+      var updatePage = function (e) {
+        $(e.target).siblings().removeClass('active');
+        $(e.target).addClass('active');
+        var list = getData(true)
+          , data = getData(false);
+        if (!$(e.target).parent('#partyBtnGroup').length) {
+          // re-initialize the party buttons when changing the views
+          initPartyBtnGroup();
+        }
+        this.chart.update(data);
+        this.initTypeahead(list);
+      }
+
+      var getData = function (isList) {
+        var selectedChamber = $chambersBtnGroup.find('.active').data('chamber');
+        var selectedParty = $('#partyBtnGroup .active').attr('id');
+        var runningAgain = $runningAgain.find('.active').data('value');
+        if (isList) {
+          return politicians.getList(selectedChamber, selectedParty, runningAgain);
+        } else {
+          return politicians.getByParty(selectedChamber, selectedParty, runningAgain);
+        }
+      }
+
+      var initPartyBtnGroup = function () {
+        var prev = $('#partyBtnGroup .active').attr('id')
+          , $btnGroup = $('#partyBtnGroup').empty()
+          , data = getData(false);
+
+        $btnGroup.append('<a href="#" class="btn active" id="all">Orice partid</a>');
         $.each(data.children, function (idx, party) {
           var $btn = $('<a href="#" class="btn" id="' + party.name + '">' + party.name + ' (' + party.children.length + ')</a>');
-          if (party.name === selected) $btn.addClass('active');
-          $btn.click(function (e) {
-            var selectedChamber = $chambersBtnGroup.find('.active').data('chamber');
-            that.chart.update(data.children[idx]);
-            that.initTypeahead(that.politicians.getList(selectedChamber, party.name));
-          });
+          if (prev == party.name) {
+            $btn.addClass('active');
+            $btn.siblings.removeClass('active');
+          }
           $btnGroup.append($btn);
         });
+
+        $btnGroup.on('click', 'a', $.proxy(updatePage, that));
       };
 
-      initPartyBtnGroup(data);
-      $chambersBtnGroup.children().each(function () {
-        $(this).click(function () {
-          var chamber = $(this).data('chamber')
-            , data = that.politicians.getByParty(chamber);
-          
-          // if a party is already selected, change the 
-          // chart only for that one
-          var party = $('#partyBtnGroup .active').attr('id');
-          initPartyBtnGroup(data, party);
+      $chambersBtnGroup.on('click', 'a', $.proxy(updatePage, this));
+      $runningAgain.on('click', 'a', $.proxy(updatePage, this));
 
-          if (party) {
-            that.chart.update(that.politicians.getByParty(chamber, party));
-          } else {
-            that.chart.update(data);
-            // same as above
-            data.children.sort(function (a, b) { return a.children.length < b.children.length });
-          }
-          that.initTypeahead(that.politicians.getList(chamber, party));
-        });
-      })
+      initPartyBtnGroup(data);
     },
     initChart : function () {
       this.chart = new PackChart(this.politicians.getByParty());
