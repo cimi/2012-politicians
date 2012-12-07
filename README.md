@@ -3,7 +3,7 @@ infographic-politicians
 
 This is an interactive graph of the Romanian members of parliament for the 2008-2012 mandate. It uses data pulled from [Harta Politicii](http://hartapoliticii.ro/), which has their attendance percentage, the percentage in which they voted against their party and if they're running for another term.
 
-## See a demo [here](http://improve.ro/sandbox/politicians/).
+#### See a demo [here](http://improve.ro/sandbox/politicians/).
 
 It was done as an excercise for learning [d3.js](http://d3js.org/) and currently uses [Circle Packing](http://bl.ocks.org/4063530) as the representation model for politicians. The bigger a politician's circle is, the more he went to work. :)
 
