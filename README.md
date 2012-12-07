@@ -1,6 +1,8 @@
 infographic-politicians
 =======================
 
+## Overview
+
 This is an interactive graph of the Romanian members of parliament for the 2008-2012 mandate. It uses data pulled from [Harta Politicii](http://hartapoliticii.ro/), which has their attendance percentage, the percentage in which they voted against their party and if they're running for another term.
 
 #### See a demo [here](http://improve.ro/sandbox/politicians/).
@@ -13,8 +15,28 @@ The JavaScript is organized with [require.js](http://requirejs.org/), jQuery is 
 
 The project was generated with [Yeoman](http://yeoman.io/) and has no server-side component. The data is stored statically as JSON files - it can be deployed anywhere.
 
+## Installing on your machine
+
+If you don't already have yeoman installed, do it:
+
+````
+$ curl -L get.yeoman.io | bash
+````
+
+It will check all of its dependencies and give you step by step instructions to get it working. Now do the following:
+
+````
+$ git clone git://github.com/cimi/infographic-politicians.git
+$ cd infographic-politicians
+$ yeoman install d3
+$ yeoman install handlebars
+$ yeoman server
+````
+
+This should open a web server on port 3501 with the project. You'll be able to see changes you make to the files without a page reload.
+
+
 TODO: 
-* add installation steps for people who want to build from it
 * add tests, at least for the model code (politicians.js)
 * consider refactoring using CoffeeScript and classes
 * find a better color palette for the representation
