@@ -91,7 +91,8 @@ define(['jquery', 'politicians', 'pack', 'typeahead'],
       // clear the element and re-add it again
       // couldn't find a way just to update the data for the typeahead in Bootstrap
       $('#typeaheadSearch').remove();
-      $('<input id="typeaheadSearch" />').appendTo('#search').typeahead(typeaheadOptions);
+      $('<input type="text" placeholder="Căutare după nume" id="typeaheadSearch" />')
+          .appendTo('#search').typeahead(typeaheadOptions);
     },
     initToolbar : function (data) {
       // create buttons to update the chart

@@ -64,7 +64,8 @@ define('politicians', ['jquery'], function ($) {
       $.each(this._data[chamber], function (idx, politician) {
         // just get the leaf nodes
         if (!politician.children) {
-          if ((!party || politician.group === party) && (!runningAgain || politician.runningAgain)) {
+          if ((!party || party === 'all' || politician.group === party) 
+              && (!runningAgain || politician.runningAgain)) {
             result.push(politician);  
           }
         }
