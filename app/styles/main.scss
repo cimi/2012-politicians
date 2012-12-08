@@ -28,7 +28,7 @@ text {
     width: 380px;
     max-width: 380px;
     padding: 0 10px;
-    min-height: 200px;
+    min-height: 220px;
     overflow-x: hidden;
     margin: 150px auto;
     background-color: #f0f0f0;
@@ -37,7 +37,24 @@ text {
     table.table {
         margin: 10px auto;
     }
+    h3 {
+      margin-top: 0px;
+    }
+
+    #infoboxPlaceholder {
+      margin: 20px 0 0 0;
+    }
 }
+
+#search {
+  margin: 10px auto 0;
+}
+
+#filters { 
+  margin-top: 20px;
+  clear: both;
+}
+
 .container {
     margin-top: 20px;
 }

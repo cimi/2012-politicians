@@ -11,8 +11,6 @@
         <meta name="viewport" content="width=device-width">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
-        
         <link rel="stylesheet" href="styles/main.css">
         <script src="scripts/vendor/modernizr.min.js"></script>
     </head>
@@ -20,7 +18,18 @@
     <div class="page-header"><h1>Prezența parlamentarilor în mandatul 2008-2012
         <small>via <a href="http://hartapoliticii.ro">Harta Politicii</a></small></h1></div>
     <div class="container">
-        <div class="btn-toolbar">
+        <div id="infobox">
+            <div id="search">
+                <input type="text" id="typeaheadSearch" placeholder="Căutare după nume" />
+            </div>
+            <div id="infoboxContent"></div>
+            <div id="infoboxPlaceholder">
+                <p>Pentru a afla informații despre candidați, mutați mouse-ul peste cercurile din dreapta. Dimensiunea cercului corespunde prezenței parlamentarului.</p>
+                <p>Pentru a evidenția un candidat anume, folosiți bara de căutare.</p>
+            </div>
+        </div>
+        <div id="chart"></div>
+        <div class="btn-toolbar" id="filters">
             <div class="btn-group" id="chambersBtnGroup">
                 <a href="#" class="btn active" data-chamber="all">Toți parlamentarii</a>
                 <a href="#" class="btn" data-chamber="senate">Senatori</a>
@@ -34,18 +43,7 @@
             <div class="btn-group" id="partyBtnGroup">
             </div>
         </div>
-        <div id="search">
-            <input type="text" id="typeaheadSearch" placeholder="Căutare după nume" />
-        </div>
-        <div id="infobox">
-            <div id="infoboxContent"></div>
-            <div id="infoboxPlaceholder">
-                <br /><br />
-                <p>Pentru a afla informații despre un candidat, mutați mouse-ul peste cercul aferent. Dimensiunea cercului corespunde prezenței sale din parlament.</p>
-                <p>Pentru a evidenția un candidat anume, folosiți bara de căutare.</p>
-            </div>
-        </div>
-        <div id="chart"></div>
+
     </div>
 
     <script id="infoboxTemplate" type="text/x-handlebars-template">
