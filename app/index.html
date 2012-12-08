@@ -37,16 +37,22 @@
         <div id="search">
             <input type="text" id="typeaheadSearch" placeholder="Căutare după nume" />
         </div>
-        <div class="infobox-container"><div id="infobox"></div></div>
-
+        <div id="infobox">
+            <div id="infoboxContent"></div>
+            <div id="infoboxPlaceholder">
+                <br /><br />
+                <p>Pentru a afla informații despre un candidat, mutați mouse-ul peste cercul aferent. Dimensiunea cercului corespunde prezenței sale din parlament.</p>
+                <p>Pentru a evidenția un candidat anume, folosiți bara de căutare.</p>
+            </div>
+        </div>
         <div id="chart"></div>
     </div>
 
     <script id="infoboxTemplate" type="text/x-handlebars-template">
-        <h2>{{name}}, {{group}}</h2>
+        <h3>{{name}}, {{group}}</h3>
         <table class="table">
-            <tr><td>Prezență (rebel):</td> <td style="text-align: right"><span class="badge badge-{{level attendance}}">{{attendance}}%</span></td></tr>
-            <tr><td>Voturi împotriva partidului:</td> <td style="text-align: right">{{rebel}}%</td></tr>
+            <tr><td>Prezență:</td> <td style="text-align: right"><span class="badge badge-{{level attendance}}">{{attendance}}%</span></td></tr>
+            <tr><td>Rebel:</td> <td style="text-align: right">{{rebel}}%</td></tr>
             <tr><td>Candidat 2012: </td><td style="text-align: right">{{runningAgain}}</td></tr>
         </table>
     </script>

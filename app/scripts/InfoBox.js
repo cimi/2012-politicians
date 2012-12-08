@@ -1,18 +1,22 @@
 define([], function () {
-    var InfoBox = function ($el, $template) {
+    var InfoBox = function ($el, $template, $placeholder) {
         this.$el = $el;
+        this.$placeholder = $placeholder;
         this.template = Handlebars.compile($template.html());
     };
 
     InfoBox.prototype.show = function (data) {
         var rendered = this.template(data);
         this.$el.html(rendered);
-        // TODO: set position
-        this.$el.show();
+        // TODO: set position - ?? I suck
+        this.$placeholder.stop(true, true).hide();
+        this.$el.stop(true, true).fadeIn(300);
+
 
     };
     InfoBox.prototype.hide = function () {
-        this.$el.hide();
+        this.$el.stop(true, true).hide();
+        this.$placeholder.stop(true, true).fadeIn(300);
     };
 
     // helper function that returns the appropriate Bootstrap

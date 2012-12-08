@@ -1,7 +1,7 @@
 define(['jquery', 'InfoBox', 'politicians'], function ($, InfoBox, Politicians) {
-    var WIDTH = HEIGHT = 700;
+    var WIDTH = HEIGHT = 500;
     var PackChart = function (data) {
-      this.infobox = new InfoBox($('#infobox'), $("#infoboxTemplate"));
+      this.infobox = new InfoBox($('#infoboxContent'), $("#infoboxTemplate"), $("#infoboxPlaceholder"));
 
       this.vis = initVis("#chart", WIDTH, HEIGHT);
       this.pack = configurePack();

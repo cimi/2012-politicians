@@ -18,19 +18,24 @@ text {
 }
 
 #chart {
-  text-align:center;
+  float: right;
+  text-align: center;
+  height: 500px;
+  width: 500px;
 }
 
-.infobox-container {
+#infobox {
+    width: 380px;
+    max-width: 380px;
+    padding: 0 10px;
     min-height: 200px;
-    max-height: 200px;
-    width: 600px;
-    margin: 20px auto;
-    overflow: hidden;
+    overflow-x: hidden;
+    margin: 150px auto;
     background-color: #f0f0f0;
+    float: left;
+    @include border-radius(15px);
     table.table {
-        margin: 20px auto;
-        width: 80%;
+        margin: 10px auto;
     }
 }
 .container {
