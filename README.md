@@ -1,4 +1,4 @@
-infographic-politicians
+Attendance for Romanian Members of Parliament in the 2008-2012 term
 =======================
 
 ## Overview
