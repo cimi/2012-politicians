@@ -1,4 +1,4 @@
-Attendance for Romanian Members of Parliament in the 2008-2012 term
+Attendance for Romanian Members of Parliament (2008-2012)
 =======================
 
 ## Overview
