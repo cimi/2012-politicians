@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Prezența parlamentarilor români</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="styles/152508de.main.css">
+        <script src="scripts/vendor/cf69c6f2.modernizr.min.js"></script>
+        <link rel="shortcut icon" type="image/png" href="favicon.png">
+    </head>
+    <body style="text-align: center;">
+    <div class="page-header"><h1>Prezența parlamentarilor în mandatul 2008-2012
+        <small>via <a href="http://hartapoliticii.ro">Harta Politicii</a></small></h1></div>
+    <div class="container">
+        <div id="infobox">
+            <div id="search">
+                <input type="text" id="typeaheadSearch" placeholder="Căutare după nume" />
+            </div>
+            <div id="infoboxContent"></div>
+            <div id="infoboxPlaceholder">
+                <p>Pentru a afla informații despre candidați, mutați mouse-ul peste cercurile din dreapta. Dimensiunea cercului corespunde prezenței parlamentarului.</p>
+                <p>Pentru a evidenția un candidat anume, folosiți bara de căutare.</p>
+            </div>
+        </div>
+        <div id="chart"></div>
+        <div class="btn-toolbar" id="filters">
+            <div class="btn-group" id="chambersBtnGroup">
+                <a href="#" class="btn active" data-chamber="all">Toți parlamentarii</a>
+                <a href="#" class="btn" data-chamber="senate">Senatori</a>
+                <a href="#" class="btn" data-chamber="deputies">Deputați</a>
+            </div>
+            <div class="btn-group" id="runningAgainBtnGroup">
+                <a href="#" class="btn active" data-value="false">Toți parlamentarii</a>
+                <a href="#" class="btn" data-value="true">Candidați 2012</a>
+            </div>
+            <br /><br />
+            <div class="btn-group" id="partyBtnGroup">
+            </div>
+        </div>
+
+    </div>
+
+    <script id="infoboxTemplate" type="text/x-handlebars-template">
+        <h3>{{name}}, {{group}}</h3>
+        <table class="table">
+            <tr><td>Prezență:</td> <td style="text-align: right"><span class="badge badge-{{level attendance}}">{{attendance}}%</span></td></tr>
+            <tr><td>Rebel:</td> <td style="text-align: right">{{rebel}}%</td></tr>
+            <tr><td>Candidat 2012: </td><td style="text-align: right">{{runningAgain}}</td></tr>
+        </table>
+    </script>
+
+    <a href="https://github.com/cimi/infographic-politicians"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+
+        <!--[if lt IE 9]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="scripts/vendor/8bc61845.jquery.min.js"><\/script>')</script>
+
+
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            var _gaq=[['_setAccount','UA-6170776-1'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+    <script src="scripts/67e01c9c.plugins.js"></script>
+
+    <script src="scripts/114b8bd4.amd-app.js"></script>
+
+</body>
+</html>
